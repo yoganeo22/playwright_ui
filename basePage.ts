@@ -1,11 +1,16 @@
 import { test as basePage } from '@playwright/test';
-import { LoginPage } from './pageProject/LoginPage';
+import { GooglePage } from './pageProject/GooglePage';
+import { PlaywrightPage } from './pageProject/PlaywrightPage';
 
 const test = basePage.extend<{
-    loginPage: LoginPage;
+    googlePage: GooglePage;
+    playwrightPage: PlaywrightPage;
 }>({
-    loginPage: async ({ page, context }, use) => {
-        await use(new LoginPage(page));
+    googlePage: async ({ page, context }, use) => {
+        await use(new GooglePage(page));
+    },
+    playwrightPage: async ({ page, context }, use) => {
+        await use(new PlaywrightPage(page));
     }
 })
 
