@@ -9,8 +9,7 @@ export class GooglePage {
     readonly signInErrorMessage: Locator
     readonly searchTexbox: Locator
     readonly searchButton: Locator
-
-    /* Tabs */
+    readonly pagination: Locator
     readonly allTab: Locator
     
     constructor(page:Page)
@@ -22,18 +21,22 @@ export class GooglePage {
         this.signInErrorMessage=page.locator("//*[@class='o6cuMc Jj6Lae']")
         this.searchTexbox=page.getByRole('combobox', { name: 'Search' })
         this.searchButton=page.getByRole('button', { name: 'Google Search' })
-
-        /* Tabs */
+        this.pagination=page.locator("//*[@class='AaVjTc']/tbody/tr")
         this.allTab=page.getByText('All', { exact: true })
+    }
+
+    async navigateGoogleUrl(url: string)
+    {
+        await this.page.goto(url)
+        await this.page.waitForLoadState('networkidle')
+
+        // Validation
+        await expect(this.page).toHaveTitle(/Google/)
     }
 
     async failedLogin(username: string, password: string)
     {
-        await this.page.goto('https://www.google.com/');
         await this.page.waitForLoadState('networkidle')
-
-        // Expect a title "to contain" a substring.
-        await expect(this.page).toHaveTitle(/Google/);
 
         await this.signInButton.click()
         await this.googleAccountTextbox.first().fill(username)
@@ -46,11 +49,16 @@ export class GooglePage {
 
     async searchGoogle()
     {
-        await this.page.goto('https://www.google.com/');
+        let paginationOffset = 2    // 'G' and 'Next' Elements
 
         await this.searchTexbox.fill('weird facts on earth')
         await this.page.keyboard.press('Enter')
 
-        await expect(await this.allTab).toBeVisible()
+        await this.page.waitForLoadState('networkidle')
+        let paginationCount = await this.pagination.locator('td').count()
+        console.log("pagination count: " + paginationCount)
+
+        let lastPage = await this.pagination.locator('td').nth(paginationCount - paginationOffset).innerText()
+        console.log("Last Page Number is " + lastPage)
     }
 }

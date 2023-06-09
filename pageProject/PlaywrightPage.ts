@@ -6,29 +6,61 @@ export class PlaywrightPage {
     readonly nodejsButton: Locator
     readonly languageDDL: Locator
     readonly navbarLabel: Locator
+    readonly iconPlaywright: Locator
+    readonly toggleMode: Locator
     
     constructor(page:Page)
     {
         this.page=page
         this.nodejsButton=page.getByRole('button', { name: 'Node.js' }) 
-        this.languageDDL=page.getByRole('navigation', { name: 'Main' })
-        this.navbarLabel=page.locator("//*[@class='navbar__brand']")
+        this.languageDDL=page.getByRole('navigation', { name: 'Main' }) 
+        this.navbarLabel=page.locator("//*[@class='navbar__brand']") 
+        this.iconPlaywright=page.locator("//*[@class='navbar__logo']") 
+        this.toggleMode=page.locator("//*[@class='toggle_vylO colorModeToggle_DEke']") 
+    }
+
+    async navigatePlaywrightUrl(url: string)
+    {
+        await this.page.goto(url)
+        await this.page.waitForLoadState('networkidle')
+
+        // Validation
+        await expect(this.page).toHaveTitle(/Playwright/)
     }
 
     async setLanguage(language: string)
     {
-        await this.page.goto('https://playwright.dev/');
-        await this.page.waitForLoadState('networkidle')
-
-        // Expect a title "to contain" a substring.
-        await expect(this.page).toHaveTitle(/Playwright/);
-
         await this.nodejsButton.hover()
-        await this.languageDDL.getByRole('link', { name: language }).click();
+        await this.languageDDL.getByRole('link', { name: language }).click()
 
         // Validation
-        let res = await this.navbarLabel.innerText()
-        await expect(res).toBe('Playwright for ' + language)
+        let result = await this.navbarLabel.innerText()
+        await expect(result).toBe('Playwright for ' + language)
     }
 
+    async validateIcon(icon: string)
+    {
+        let result = await this.iconPlaywright.innerHTML()
+        
+        // Validation
+        await expect(result).toContain(icon)
+    }
+
+    async validateToggle()
+    {
+        let result = await this.toggleMode.innerHTML()
+        await expect(result).toContain("light mode")
+
+        await this.toggleMode.click()
+
+        // Validation
+        result = await this.toggleMode.innerHTML()
+        await expect(result).toContain("dark mode")
+
+        await this.toggleMode.click()
+
+        // Validation
+        result = await this.toggleMode.innerHTML()
+        await expect(result).toContain("light mode")
+    }
 }
