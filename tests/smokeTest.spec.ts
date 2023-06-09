@@ -3,7 +3,7 @@ import test from '../basePage';
 
 test('validate login with invalid username', async ({ page, googlePage}) => {
     
-    // Includes - textbox, button, label/title
+    // Includes - text field, button, message box
     await page.goto('/') 
     await googlePage.failedLogin('demo', 'demo')
     
@@ -11,7 +11,7 @@ test('validate login with invalid username', async ({ page, googlePage}) => {
 
 test('validate search function', async ({ page, googlePage}) => {
     
-    // Includes - textbox, keyboard enter
+    // Includes - search field, pagination
     await page.goto('/') 
     await googlePage.searchGoogle()
     
@@ -19,7 +19,7 @@ test('validate search function', async ({ page, googlePage}) => {
 
 test('validate playwright supported language', async({page, playwrightPage}) => {
 
-    // Includes - title, drop down list
+    // Includes - dropdown list
     await page.goto('/') 
     await playwrightPage.setLanguage('Java')
 });

@@ -11,6 +11,7 @@ export class GooglePage {
     readonly searchButton: Locator
     readonly pagination: Locator
     readonly allTab: Locator
+    readonly resultStat: Locator
     
     constructor(page:Page)
     {
@@ -23,6 +24,7 @@ export class GooglePage {
         this.searchButton=page.getByRole('button', { name: 'Google Search' })
         this.pagination=page.locator("//*[@class='AaVjTc']/tbody/tr")
         this.allTab=page.getByText('All', { exact: true })
+        this.resultStat=page.locator("//*[@id='result-stats']")
     }
 
     async navigateGoogleUrl(url: string)
@@ -60,5 +62,11 @@ export class GooglePage {
 
         let lastPage = await this.pagination.locator('td').nth(paginationCount - paginationOffset).innerText()
         console.log("Last Page Number is " + lastPage)
+
+        // Navigate to this pagination number
+        await this.page.getByRole('link', { name: 'Page ' + lastPage }).click()
+        await this.page.waitForLoadState('networkidle')
+        let resStat = await this.resultStat.textContent()
+        console.log("Page Result: " + resStat)
     }
 }
