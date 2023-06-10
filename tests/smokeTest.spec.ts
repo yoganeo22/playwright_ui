@@ -28,7 +28,7 @@ test('validate playwright icon', async({page, playwrightPage}) => {
 
     // Includes - icon
     await page.goto('/')
-    await playwrightPage.validateIcon('/img/playwright-logo.svg')
+    await playwrightPage.validateIcon('/img/playwright-logos.svg')
 });
 
 test('validate toggle mode', async({page, playwrightPage}) => {
@@ -36,4 +36,11 @@ test('validate toggle mode', async({page, playwrightPage}) => {
     // Includes - toggle
     await page.goto('/')
     await playwrightPage.validateToggle()
+});
+
+test('validate modal', async({page, playwrightPage}) => {
+
+    // Includes - toggle
+    await page.goto('/')
+    await playwrightPage.validateModal()
 });
