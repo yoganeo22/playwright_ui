@@ -8,6 +8,9 @@ export class PlaywrightPage {
     readonly navbarLabel: Locator
     readonly iconPlaywright: Locator
     readonly toggleMode: Locator
+    readonly searchButton: Locator
+    readonly searchModalDialog: Locator
+    readonly searchInput: Locator
     
     constructor(page:Page)
     {
@@ -17,6 +20,9 @@ export class PlaywrightPage {
         this.navbarLabel=page.locator("//*[@class='navbar__brand']") 
         this.iconPlaywright=page.locator("//*[@class='navbar__logo']") 
         this.toggleMode=page.locator("//*[@class='toggle_vylO colorModeToggle_DEke']") 
+        this.searchButton=page.locator("//*[@class='DocSearch DocSearch-Button']")
+        this.searchModalDialog=page.locator("//*[@class='DocSearch-Modal']")
+        this.searchInput=page.locator("//*[@class='DocSearch-Input']")
     }
 
     async navigatePlaywrightUrl(url: string)
@@ -62,5 +68,12 @@ export class PlaywrightPage {
         // Validation
         result = await this.toggleMode.innerHTML()
         await expect(result).toContain("light mode")
+    }
+
+    async validateModal()
+    {
+        await this.searchButton.click()
+        await this.page.waitForSelector('.DocSearch-Modal', {state: 'visible'})
+        await this.searchInput.type('Inspector')
     }
 }
