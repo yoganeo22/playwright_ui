@@ -17,12 +17,12 @@ export class PlaywrightPage {
         this.page=page
         this.nodejsButton=page.getByRole('button', { name: 'Node.js' }) 
         this.languageDDL=page.getByRole('navigation', { name: 'Main' }) 
-        this.navbarLabel=page.locator("//*[@class='navbar__brand']") 
-        this.iconPlaywright=page.locator("//*[@class='navbar__logo']") 
-        this.toggleMode=page.locator("//*[@class='toggle_vylO colorModeToggle_DEke']") 
-        this.searchButton=page.locator("//*[@class='DocSearch DocSearch-Button']")
-        this.searchModalDialog=page.locator("//*[@class='DocSearch-Modal']")
-        this.searchInput=page.locator("//*[@class='DocSearch-Input']")
+        this.navbarLabel=page.locator("//*[@class='navbar__brand']") //<a ..>
+        this.iconPlaywright=page.locator("//*[@class='navbar__logo']") //<img ..>
+        this.toggleMode=page.locator("//*[@class='toggle_vylO colorModeToggle_DEke']") //<button ..>
+        this.searchButton=page.locator("//*[@class='DocSearch DocSearch-Button']") //<button ..>
+        this.searchModalDialog=page.locator("//*[@class='DocSearch-Modal']") //<div ..>
+        this.searchInput=page.locator("//*[@class='DocSearch-Input']") //<input ..>
     }
 
     async navigatePlaywrightUrl(url: string)
