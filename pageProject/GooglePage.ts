@@ -17,14 +17,14 @@ export class GooglePage {
     {
         this.page=page
         this.signInButton=page.getByRole('link', { name: 'Sign in' })
-        this.googleAccountTextbox=page.locator("//*[@class='whsOnd zHQkBf']")
+        this.googleAccountTextbox=page.locator("//*[@class='whsOnd zHQkBf']") //<input ..>
         this.nextButton=page.getByRole('button', { name: 'Next' })
-        this.signInErrorMessage=page.locator("//*[@class='o6cuMc Jj6Lae']")
+        this.signInErrorMessage=page.locator("//*[@class='o6cuMc Jj6Lae']") //<div ..>
         this.searchTexbox=page.getByRole('combobox', { name: 'Search' })
         this.searchButton=page.getByRole('button', { name: 'Google Search' })
-        this.pagination=page.locator("//*[@class='AaVjTc']/tbody/tr")
+        this.pagination=page.locator("//*[@class='AaVjTc']/tbody/tr") //<table ..>
         this.allTab=page.getByText('All', { exact: true })
-        this.resultStat=page.locator("//*[@id='result-stats']")
+        this.resultStat=page.locator("//*[@id='result-stats']") //<div ..>
     }
 
     async navigateGoogleUrl(url: string)
