@@ -28,3 +28,10 @@ test('validate modal', async({page, playwrightPage}) => {
     await page.goto('/')
     await playwrightPage.validateModal()
 });
+
+test('validate class', async({page, playwrightPage}) => {
+
+    // Includes - toggle
+    await page.goto('/')
+    await playwrightPage.validateClass()
+});
