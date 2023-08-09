@@ -76,4 +76,12 @@ export class PlaywrightPage {
         await this.page.waitForSelector('.DocSearch-Modal', {state: 'visible'})
         await this.searchInput.type('Inspector')
     }
+
+    async validateClass()
+    {
+        await this.page.waitForLoadState('networkidle')
+        
+        let content = await this.page.locator("//*[@class='hero']").innerHTML()
+        console.log("Content: " + content)
+    }
 }
