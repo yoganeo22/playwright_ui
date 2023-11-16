@@ -22,3 +22,12 @@ Run command:
 ```
 npm init playwright@latest
 ```
+
+## Screenshots
+Running googlePageTest.spec.ts `validate login with invalid username`
+
+![LoginWithInvalidUsername](https://github.com/yoganeo22/playwright_ui/assets/94224851/f0992272-4745-4835-8e00-f8c0f0c0a8d1)
+
+Running playwrightPageTest.spec.ts `validate modal` 
+
+![ValidateModal](https://github.com/yoganeo22/playwright_ui/assets/94224851/15f619aa-8046-44d6-ba90-15457c4c02f3)
